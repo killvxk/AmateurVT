@@ -96,22 +96,19 @@ VOID HandlerCRX(PGUESTREG pGuestRegs)
 
 ULONG64 DispatchHandler(PGUESTREG pGuestRegs)
 {
-	EXIT_REASON_FIELDS* exit = (EXIT_REASON_FIELDS*)&pGuestRegs->ExitReason;
+	EXIT_REASON_FIELDS* Exit = (EXIT_REASON_FIELDS*)&pGuestRegs->ExitReason;
 	ULONG64 CpuIndex = pGuestRegs->CpuIndex;
 	ULONG64 GuestRip = pGuestRegs->GuestRip;
 	ULONG64 GuestRsp = pGuestRegs->GuestRsp;
 	ULONG64 InstrLen = pGuestRegs->InstrLen;
 
-
-	switch (exit->Bits.Basic)
+	switch (Exit->Bits.Basic)
 	{
-	case EXIT_REASON_EXCEPTION_NMI:
-	{
+	case EXIT_REASON_EXCEPTION_NMI: {
 		HandlerException(pGuestRegs);
 		return TRUE;
 	}
 	case EXIT_REASON_CPUID: {
-		KdPrint(("CPU:%02I64X,caller CPUID\n", pGuestRegs->CpuIndex));
 		HandlerCPUID(pGuestRegs);
 		pGuestRegs->GuestRip += InstrLen;
 		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
@@ -136,8 +133,7 @@ ULONG64 DispatchHandler(PGUESTREG pGuestRegs)
 		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
 		break;
 	}
-	case EXIT_REASON_RDTSCP:
-	{
+	case EXIT_REASON_RDTSCP: {
 		_rdtscp(pGuestRegs);
 		pGuestRegs->GuestRip += InstrLen;
 		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
@@ -145,27 +141,26 @@ ULONG64 DispatchHandler(PGUESTREG pGuestRegs)
 	}
 	/*case EXIT_REASON_VMPTRLD:
 	{
-		pGuestRegs->rax = vmx_ptrld(pGuestRegs->rcx);
-		pGuestRegs->GuestRip += InstrLen;
-		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
-		break;
+	   pGuestRegs->rax = vmx_ptrld(pGuestRegs->rcx);
+	   pGuestRegs->GuestRip += InstrLen;
+	   vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
+	   break;
 	}
 	case EXIT_REASON_VMCLEAR:
 	{
-		pGuestRegs->rax = vmx_clear(pGuestRegs->rcx);
-		pGuestRegs->GuestRip += InstrLen;
-		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
-		break;
+	   pGuestRegs->rax = vmx_clear(pGuestRegs->rcx);
+	   pGuestRegs->GuestRip += InstrLen;
+	   vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
+	   break;
 	}
 	case EXIT_REASON_VMXON:
 	{
-		pGuestRegs->rax = vmx_on(pGuestRegs->rcx);
-		pGuestRegs->GuestRip += InstrLen;
-		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
-		break;
+	   pGuestRegs->rax = vmx_on(pGuestRegs->rcx);
+	   pGuestRegs->GuestRip += InstrLen;
+	   vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
+	   break;
 	}*/
-	case EXIT_REASON_VMXOFF:
-	{
+	case EXIT_REASON_VMXOFF: {
 		IA32_RFLAGS GuestFlags = { 0 };
 		ULONG64 cr3 = 0;
 		vmx_read(GUEST_CR3, &cr3);
@@ -180,7 +175,12 @@ ULONG64 DispatchHandler(PGUESTREG pGuestRegs)
 		pGuestRegs->rflags = GuestFlags.Value;
 
 		return ExitVMX;
-
+	}
+	case EXIT_REASON_CR_ACCESS: {
+		HandlerCRX(pGuestRegs);
+		pGuestRegs->GuestRip += InstrLen;
+		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
+		break;
 	}
 	//case EXIT_REASON_MTF_TRAP_FLAG:
 	//{
@@ -192,13 +192,6 @@ ULONG64 DispatchHandler(PGUESTREG pGuestRegs)
 	//	//InjectExceptionInt1();
 	//	break;
 	//}
-	case EXIT_REASON_CR_ACCESS:
-	{
-		HandlerCRX(pGuestRegs);
-		pGuestRegs->GuestRip += InstrLen;
-		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
-		break;
-	}
 	//case EXIT_REASON_INVD:
 	//{
 	//	_invd();
@@ -211,14 +204,13 @@ ULONG64 DispatchHandler(PGUESTREG pGuestRegs)
 	//	vmx_write(GUEST_RIP, GuestRip + InstrLen);
 	//	break;
 	//}
-	case EXIT_REASON_XSETBV:
-	{
-		asm_xsetbv(pGuestRegs);
-		pGuestRegs->GuestRip += InstrLen;
-		vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
-
-		break;
-	}
+	//case EXIT_REASON_XSETBV:
+	//{
+	//	asm_xsetbv(pGuestRegs);
+	//	pGuestRegs->GuestRip += InstrLen;
+	//	vmx_write(GUEST_RIP, pGuestRegs->GuestRip);
+	//	break;
+	//}
 	default:
 
 		DbgBreakPoint();
