@@ -187,13 +187,6 @@ _readmsr proc
     ret
 _readmsr endp
 
-_readmsr2 proc
-	rdmsr
-	shl rdx,32
-	or rax,rdx
-	ret
-_readmsr2 endp
-
 _writemsr proc
 	push r8
 	mov r8,rcx
@@ -204,14 +197,6 @@ _writemsr proc
 	pop r8
     ret
 _writemsr endp
-
-_writemsr2 proc
-	mov rax,rdx
-	shr rdx,32
-	wrmsr
-	ret
-_writemsr2 endp
-
 
 _rdtsc proc
 	push r8
@@ -256,24 +241,15 @@ _invd proc
 	ret
 _invd endp
 
-_BTS proc
-	bts [rcx],rdx
+_cli proc
+	cli
 	ret
-_BTS endp
+_cli endp
 
-_BTR proc
-	btr [rcx],rdx
+_sti proc
+	sti
 	ret
-_BTR endp
-
-_vmcall proc
-	vmcall
-	ret
-_vmcall endp
-
-_invlpg proc
-	invlpg byte ptr[rcx]
-_invlpg endp
+_sti endp
 
 _StartVM proc
 	pushfq
@@ -335,18 +311,6 @@ leave_vmx:
 	jmp rax
 	int 3
 _HostEntry ENDP
-
-
-
-;此函数是CR3挂靠,并开启内存读写
-_TargetProcess proc	
-	mov rax,cr3
-	mov rcx,[rcx+28h]
-	mov cr3,rcx	
-	stac	
-	ret
-_TargetProcess endp
-
 
 
 vmx_write PROC

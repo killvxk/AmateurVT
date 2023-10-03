@@ -29,6 +29,8 @@ __int64 _rdtscp(PGUESTREG GuestRegs);
 __int64 asm_xsetbv(PGUESTREG GuestRegs);
 
 __int64 _invd();
+void _cli();
+void _sti();
 
 __int64 vmx_write(__int64 rcx, __int64 rdx);
 __int64 vmx_read(__int64 rcx, void* rdx);

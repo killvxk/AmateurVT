@@ -64,9 +64,11 @@ ULONG_PTR KipiSetupVT(ULONG_PTR Arg)
 ULONG_PTR KipiUnloadVT(ULONG_PTR Arg)
 {
 	ULONG CpuIndex = KeGetCurrentProcessorNumber();
-	StopVM();
+	StopVM();	
 	CloseVMX();
+	_sti();
 	DeleteVM(CpuIndex);
+
 	KdPrint(("CPU:[%d],关闭VMX\n", CpuIndex));
 	return TRUE;
 }
