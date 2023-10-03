@@ -308,6 +308,7 @@ leave_vmx:
 	popfq	
 	add rsp,40h
 	mov rsp,rcx
+	sti
 	jmp rax
 	int 3
 _HostEntry ENDP
