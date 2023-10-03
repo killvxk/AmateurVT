@@ -1,7 +1,5 @@
 #include "Driver.h"
 
-
-
 ULONG64 CreateVM(ULONG CpuIndex)
 {
 	psVM[CpuIndex].pOnVa = ExAllocatePool2(POOL_FLAG_NON_PAGED, PAGE_SIZE, 'VMON');

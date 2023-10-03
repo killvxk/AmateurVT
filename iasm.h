@@ -28,21 +28,21 @@ __int64 _rdtsc(PGUESTREG GuestRegs);
 __int64 _rdtscp(PGUESTREG GuestRegs);
 __int64 asm_xsetbv(PGUESTREG GuestRegs);
 
-__int64 _invd();
+void _invd();
 void _cli();
 void _sti();
 
-__int64 vmx_write(__int64 rcx, __int64 rdx);
-__int64 vmx_read(__int64 rcx, void* rdx);
-__int64 vmx_on(void* rcx);
-__int64 vmx_off();
-__int64 vmx_ptrst(void* rcx);
-__int64 vmx_ptrld(void* rcx);
-__int64 vmx_launch();
-__int64 vmx_resume();
-__int64 vmx_func(void* rcx, void* rdx, void* r8, void* r9);
-__int64 vmx_call(void* rcx, void* rdx, void* r8, void* r9);
-__int64 vmx_clear(void*rcx);
-__int64 vmx_invvpid(void* rcx, void* m128);
-__int64 vmx_invept(void* rcx, void* m128);
+__int8 vmx_write(__int64 rcx, __int64 rdx);
+__int8 vmx_read(__int64 rcx, void* rdx);
+__int8 vmx_on(void* rcx);
+__int8 vmx_off();
+__int8 vmx_ptrst(void* rcx);
+__int8 vmx_ptrld(void* rcx);
+__int8 vmx_launch();
+__int8 vmx_resume();
+__int8 vmx_func(void* rcx, void* rdx, void* r8, void* r9);
+__int8 vmx_call(void* rcx, void* rdx, void* r8, void* r9);
+__int8 vmx_clear(void*rcx);
+__int8 vmx_invvpid(void* rcx, void* m128);
+__int8 vmx_invept(void* rcx, void* m128);
 

@@ -413,11 +413,10 @@ ULONG64 StartVM(UCHAR CpuIndex, ULONG64 GuestRip, ULONG64 GuestRsp)
 		DbgBreakPoint();
 		return FALSE;
 	}
-	vmx_launch();
+	
+	char error = vmx_launch();
 	//下面得到执行代表出错	
-	ULONG64 error = 0;
-	vmx_read(VM_INSTRUCTION_ERROR, &error);
-	KdPrint(("VmxLaunvh fail...[%I64X]\n", ret));
+	KdPrint(("vmx_launch error code:[%d]\n", error));
 	DbgBreakPoint();
 	return FALSE;
 }
