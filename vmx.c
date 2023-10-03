@@ -254,10 +254,6 @@ ULONG64 SetVmxExtend(UCHAR CpuIndex)
 	ULONG64 ret = 0;
 
 	psVM[CpuIndex].ExecptBitMap = 0;
-	//psVM[CpuIndex].ExecptBitMap |= 1 << 0xE;
-	//psVM[CpuIndex].ExecptBitMap |= 1 << 0x1;
-	//psVM[CpuIndex].ExecptBitMap |= 1 << 0x8;
-	//psVM[CpuIndex].ExecptBitMap |= 1 << 0x3;
 	ret += vmx_write(EXCEPTION_BITMAP, psVM[CpuIndex].ExecptBitMap);
 
 	ret += vmx_write(VMCS_LINK_POINTER_FULL, ~0Ull);

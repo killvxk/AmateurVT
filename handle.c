@@ -169,7 +169,6 @@ ULONG64 DispatchHandler(PGUESTREG pGuestRegs)
 		vmx_read(GUEST_RFLAGS, &GuestFlags.Value);
 		vmx_clear(&psVM[CpuIndex].pCsPa.QuadPart);
 		vmx_off();
-		_cli();
 
 		pGuestRegs->rcx = GuestRsp;
 		pGuestRegs->rax = GuestRip + InstrLen;
