@@ -236,7 +236,6 @@ ULONG64 SetVmxExecutionCTLS(UCHAR CpuIndex, ULONG64 vmxctrl)
 		SetSecondry.Bits->XSAVES_XRSTORS = TRUE;
 		SetSecondry.Bits->INVPCID = TRUE;
 		SetSecondry.Bits->RDTSCP = TRUE;
-		//SetSecondry.Bits->VMFUNC = TRUE;
 
 		if(!SetControls(&SetSecondry.value.QuadPart, Secondry.value))
 		{

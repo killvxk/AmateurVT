@@ -4,9 +4,9 @@
 ULONG64 HandlerException(PGUESTREG pGuestRegs)
 {
 	EXIT_INTR_INFO Exit = { 0 };
-	__vmx_vmread(VM_EXIT_INTERRUPTION_INFORMATION, (size_t*)&Exit.value);
+	vmx_read(VM_EXIT_INTERRUPTION_INFORMATION, &Exit.value);
 	ULONG64 ExitQualification = 0;
-	__vmx_vmread(EXIT_QUALIFICATION, &ExitQualification);
+	vmx_read(EXIT_QUALIFICATION, &ExitQualification);
 
 
 	switch (Exit.Bits.Vector)
@@ -60,14 +60,15 @@ VOID HandlerWRMSR(PGUESTREG pGuestRegs)
 VOID HandlerCRX(PGUESTREG pGuestRegs)
 {
 	EXIT_QUA_CR_ACCESS Exit = { 0 };
-	__vmx_vmread(EXIT_QUALIFICATION, &Exit.value);
+	vmx_read(EXIT_QUALIFICATION, &Exit.value);
 
 	switch (Exit.Bits.RegNum)
 	{
 	case 0:
 	{
+		DbgBreakPoint();
 		if (Exit.Bits.AccessType)
-			__vmx_vmread(GUEST_CR0, ((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
+			vmx_read(GUEST_CR0, ((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
 		else
 			vmx_write(GUEST_CR0, *((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
 		break;
@@ -75,7 +76,7 @@ VOID HandlerCRX(PGUESTREG pGuestRegs)
 	case 3:
 	{
 		if (Exit.Bits.AccessType)
-			__vmx_vmread(GUEST_CR3, ((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
+			vmx_read(GUEST_CR3, ((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
 		else
 			vmx_write(GUEST_CR3, *((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
 		break;
@@ -83,7 +84,7 @@ VOID HandlerCRX(PGUESTREG pGuestRegs)
 	case 4:
 	{
 		if (Exit.Bits.AccessType)
-			__vmx_vmread(GUEST_CR4, ((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
+			vmx_read(GUEST_CR4, ((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
 		else
 			vmx_write(GUEST_CR4, *((PULONG64)pGuestRegs + Exit.Bits.MovToCr));
 		break;
@@ -173,6 +174,7 @@ ULONG64 DispatchHandler(PGUESTREG pGuestRegs)
 
 		vmx_off();
 		__writecr3(cr3);
+
 		pGuestRegs->rcx = GuestRsp;
 		pGuestRegs->rax = GuestRip + InstrLen;
 		pGuestRegs->rflags = GuestFlags.Value;
