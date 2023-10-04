@@ -21,9 +21,9 @@ ULONG64 HandlerException(PGUESTREG pGuestRegs)
 
 ULONG64 HandlerVMCALL(PGUESTREG pGuestRegs)
 {
-
 	return TRUE;
 }
+
 
 VOID HandlerCPUID(PGUESTREG pGuestRegs)
 {
@@ -31,7 +31,7 @@ VOID HandlerCPUID(PGUESTREG pGuestRegs)
 	switch (pGuestRegs->rax)
 	{
 	case 0x5555:
-	{
+	{		
 		pGuestRegs->rax = 0x11111111;
 		pGuestRegs->rcx = 0x33333333;
 		pGuestRegs->rdx = 0x44444444;

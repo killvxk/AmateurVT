@@ -19,42 +19,48 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Driver.c">
+    <ClCompile Include="src\Driver.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="handle.c">
+    <ClCompile Include="src\handle.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmx.c">
+    <ClCompile Include="src\vmcall.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vmx.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Driver.h">
+    <ClInclude Include="inc\Driver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="handle.h">
+    <ClInclude Include="inc\handle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="iasm.h">
+    <ClInclude Include="inc\iasm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vmx.h">
+    <ClInclude Include="inc\msr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="msr.h">
+    <ClInclude Include="inc\reg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="reg.h">
+    <ClInclude Include="inc\vmcall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <MASM Include="iasm.asm">
-      <Filter>Source Files</Filter>
-    </MASM>
+    <ClInclude Include="inc\vmx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="src\iasm.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@
 #include "reg.h"
 #include "iasm.h"
 
-#define STACK_SIZE				0x6000
+#define STACK_SIZE				0x8000
 #define CPUID_ECX_VMX_ABILITY	(1<<5)
 #define ExitVMX					0xFFFFFFF
 
