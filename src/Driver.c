@@ -84,8 +84,6 @@ VOID DriverUnload(PDRIVER_OBJECT pDriverObject)
 	KdPrint(("DriverUnload SUCCESSFUL\n"));
 }
 
-
-
 NTSTATUS DriverEntry(PDRIVER_OBJECT pDriverObject, PUNICODE_STRING RegisterPath)
 {
 	pDriverObject->DriverUnload = DriverUnload;

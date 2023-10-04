@@ -2,11 +2,9 @@
 StartVM proto		;外部的函数,开启VT,设置VT环境
 HostEntry proto		;外部的函数,VMM入口
 
-
 .data
 
-ExitVMX = 0FFFFFFFh
-
+ExitVMX = 0DEADC0DEh
 
 GUEST_RAX = 0
 GUEST_RCX = 8

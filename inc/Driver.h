@@ -1,11 +1,7 @@
 #pragma once
 
 #include <ntifs.h>
-#include <ntimage.h>
 #include <intrin.h>
-#include <stdio.h>
-
-
 
 #include "vmx.h"
 #include "handle.h"
@@ -15,7 +11,7 @@
 
 #define STACK_SIZE				0x8000
 #define CPUID_ECX_VMX_ABILITY	(1<<5)
-#define ExitVMX					0xFFFFFFF
+#define ExitVMX					0xDEADC0DE
 
 #pragma pack(1)
 
