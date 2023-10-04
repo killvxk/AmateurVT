@@ -100,7 +100,6 @@
   <ItemGroup>
     <ClCompile Include="src\Driver.c" />
     <ClCompile Include="src\handle.c" />
-    <ClCompile Include="src\vmcall.c" />
     <ClCompile Include="src\vmx.c" />
   </ItemGroup>
   <ItemGroup>
@@ -109,7 +108,6 @@
     <ClInclude Include="inc\iasm.h" />
     <ClInclude Include="inc\msr.h" />
     <ClInclude Include="inc\reg.h" />
-    <ClInclude Include="inc\vmcall.h" />
     <ClInclude Include="inc\vmx.h" />
   </ItemGroup>
   <ItemGroup>

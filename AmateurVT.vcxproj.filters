@@ -25,9 +25,6 @@
     <ClCompile Include="src\handle.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\vmcall.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\vmx.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,9 +43,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\reg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\vmcall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\vmx.h">
