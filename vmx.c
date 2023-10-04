@@ -431,6 +431,8 @@ ULONG64 HostEntry(PGUESTREG pGuestRegs)
 	vmx_read(GUEST_RFLAGS, &pGuestRegs->GuestFlag);
 	vmx_read(VM_EXIT_INSTRUCTION_LENGTH, &pGuestRegs->InstrLen);
 
+	/*此处可升级成get pcr struct,需要修改 _HostEntry 的汇编代码和 PGUESTREG 的结构
+	判断是哪种系统的 pcr 从而采用不同结构的 pcr*/
 	pGuestRegs->EProcess = PsGetCurrentProcess();
 	pGuestRegs->EThread = PsGetCurrentThread();
 
