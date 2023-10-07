@@ -4,7 +4,7 @@ HostEntry proto		;外部的函数,VMM入口
 
 .data
 
-ExitVMX = 0DEADC0DEh
+ExitVMX = 0DEADh
 
 GUEST_RAX = 0
 GUEST_RCX = 8
@@ -218,9 +218,6 @@ _rdtscp PROC
 _rdtscp ENDP
 
 asm_xsetbv proc
-	push rax
-	push rcx
-	push rdx
 	push r8
 	mov r8,rcx	
 	mov rax,[r8+GUEST_RAX]
@@ -228,9 +225,6 @@ asm_xsetbv proc
 	mov rdx,[r8+GUEST_RDX]
 	xsetbv
 	pop r8
-	pop rdx
-	pop rcx
-	pop rax
 	ret
 asm_xsetbv endp
 

@@ -11,7 +11,7 @@
 
 #define STACK_SIZE				0x8000
 #define CPUID_ECX_VMX_ABILITY	(1<<5)
-#define ExitVMX					0xDEADC0DE
+#define ExitVMX					0x0DEAD
 
 #pragma pack(1)
 
@@ -35,7 +35,6 @@ typedef struct _VM {
 	PVOID pMsrMap_W_L;
 	PVOID pMsrMap_W_H;
 	MSRSTORE* pMsrMemVa;
-	UCHAR IsHookSyscall;
 
 	PHYSICAL_ADDRESS pMsrMemPa;
 	PHYSICAL_ADDRESS pMsrMapPa;
